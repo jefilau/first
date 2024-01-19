@@ -1,0 +1,18 @@
+.answered {
+    background-color: #999999;;
+}
+
+.unanswered {
+    background-color: #1111aa;;
+}
+
+.active {
+    background-color: #f9f9f9;;
+    /* 其他原有的按鈕樣式 */
+}
+.content-box {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

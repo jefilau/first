@@ -1,0 +1,41 @@
+.menu {
+  top: 0px;
+  background-color: #4CAF50; /* 修改背景顏色為綠色調 */
+  padding: 0 20px;
+  height: 100vh;
+}
+
+.menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu li:first-child {
+  font-size: 20px; 
+  color: #333; 
+  padding: 10px 0; 
+  text-align: center; 
+  font-weight: bold; 
+  border-bottom: 1px solid #ccc; 
+  margin-bottom: 15px; 
+  }
+.menu li {
+  margin-bottom: 10px;
+}
+
+.menu button {
+  position: relative;
+  background-color: #6e8794; /* 修改按鈕的背景色為深灰色 */
+  color: #ffffff; /* 文字顏色保持不變 */
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: background-color 0.3s; /* 過渡效果 */
+  border-radius: 10px; /* 圓角 */
+}
+
+.menu button.active {
+  background-color: #005580; /* active 的背景色 */
+}

@@ -1,0 +1,19 @@
+.game-board {
+  display: grid;
+  width: 240px;
+  grid-template-columns: repeat(3, auto); 
+}
+.board-row {
+  width: 100px;
+}
+.square {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 10px;
+    font-size: 40px;
+
+}
+  
