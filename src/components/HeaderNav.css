@@ -1,32 +1,124 @@
+/* 基本導航樣式 */
 .Menu {
-  display: flex;
-  justify-content: center;
-  background-color: #4CAF50; 
+  /*display: flex;*/
+  justify-content: space-between; /* 左右導航按鈕分開 */
+  background-color: #4CAF50;
   font-family: Arial, sans-serif;
   font-weight: bold;
 }
 
+
+/* 鏈接表格樣式 */
 .link-table {
+  width: 100%; /* 表格寬度 */
   border-collapse: separate;
   border-spacing: 5px;
-  border: 1px solid #ccc; 
 }
 
+.link-table tr {
+  display: flex;
+  justify-content: space-between; /* 確保左右分開 */
+
+}
+
+/* 表格單元格樣式 */
 .link-table td {
-  position: relative;
   padding: 0;
+  text-align: center; /* 每個單元格內容水平置中 */
+  align-items: center; /* 垂直置中 */
+
 }
 
+
+/* 一般導航鏈接樣式 */
 .top-bar-link {
   display: block;
   position: relative;
-  color: white; 
+  color: white;
   text-decoration: none;
   font-size: 18px;
   padding: 5px 10px;
   transition: background-color 0.3s;
 }
 
+
+/* 鏈接的懸停效果 */
+.top-bar-link:hover {
+  background-color: #6e8794; /* 懸停時的背景顏色 */
+  color: #ffffff; /* 懸停時的文字顏色 */
+}
+
+/* 左側鏈接的樣式 */
+.left-link {
+  display: flex;
+  justify-content: flex-start;
+  /*align-items: center;  垂直置中 */
+}
+
+/* 右側鏈接的樣式 */
+.right-links {
+  display: flex;
+  justify-content: flex-end;
+  /*align-items: center;  垂直置中 */
+}
+
+/* 右側鏈接之間的間距 */
+.right-links .top-bar-link {
+  margin-left: 10px;
+}
+
+/* 漢堡菜單樣式 - 移動設備適配 */
+.hamburger-menu {
+  display: none;
+  cursor: pointer;
+  color: white;
+  font-size: 24px;
+  padding: 5px 10px;
+}
+
+/* 下拉菜單樣式 */
+.dropdown-menu {
+  display: block; 
+  position: absolute;
+  right: 0;
+  background-color: #4CAF50;
+}
+
+/* 響應式設計：在小屏幕上顯示漢堡菜單 */
+@media (max-width: 600px) {
+  .right-links {
+    display: none;
+  }
+
+  .hamburger-menu {
+    display: block;
+  }
+
+  .dropdown-menu {
+    display: block;
+
+  }
+}
+/* Home鏈接的特殊樣式 */
+.top-bar-link.home-logo {
+  font-size: 32px;
+  font-family: 'Arial Black', Gadget, sans-serif;
+  cursor: pointer;
+  
+}
+
+.home-logo::before {
+  background-color: transparent !important; 
+}
+
+/* Home鏈接的懸停效果 */
+.home-logo:hover {
+  background-color: transparent; 
+  color: white; 
+}
+
+
+/* 鏈接的底部裝飾 */
 .top-bar-link::before {
   content: '';
   position: absolute;
@@ -38,30 +130,27 @@
   transition: background-color 0.3s;
 }
 
-.top-bar-link:hover,
-.link-table td:hover .top-bar-link {
-  background-color: #6e8794; 
-}
-
-.top-bar-link:hover::before,
-.link-table td:hover .top-bar-link::before {
+/* 懸停時顯示底部裝飾 */
+.top-bar-link:hover::before {
   background-color: #ffffff; 
 }
 
-.active-link,
-.link-table td .active-link {
-  background-color: #6e8794; 
+/* 激活鏈接的樣式 */
+.active-link {
+  background-color: #6e8794;
 }
 
-.active-link::before,
-.link-table td .active-link::before {
-  background-color: #ffffff; 
+/* 激活鏈接的底部裝飾 */
+.active-link::before {
+  background-color: #ffffff;
 }
 
+/* 保持文字裝飾在懸停時不變 */
 .link-table td .top-bar-link {
   text-decoration: none;
 }
 
+/* 保持文字裝飾在懸停時不變 */
 .link-table td .top-bar-link:hover {
   text-decoration: none;
 }

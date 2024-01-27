@@ -1,0 +1,44 @@
+.footer {
+    background-color: #333; /* 暗色背景 */
+    color: #ddd; /* 淡色文字 */
+    text-align: center;
+    font-family: Arial, sans-serif;
+    padding: 15px 0;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px; /* 添加邊距以避免在小屏幕上內容貼近邊緣 */
+}
+
+.footer-row {
+    margin-bottom: 10px;
+}
+
+.footer-title, .footer-copy {
+    font-size: 14px; /* 較小的字體大小 */
+}
+
+.footer-link {
+    color: #ddd;
+    text-decoration: none;
+    margin: 0 10px;
+    font-size: 14px; /* 較小的字體大小 */
+}
+
+.footer-link:hover {
+    text-decoration: underline;
+}
+
+/* 響應式設計：在小屏幕上調整樣式 */
+@media (max-width: 600px) {
+    .footer-row {
+        flex-direction: column; /* 在小屏幕上使鏈接垂直排列 */
+        align-items: center;
+    }
+
+    .footer-link {
+        margin: 5px 0; /* 增加垂直間距 */
+    }
+}

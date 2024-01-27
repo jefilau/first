@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import HeaderNav from './components/HeaderNav';
+import Footer from './components/Footer';
 import Menu from './components/Menu';
 import Content from './components/Content';
 
@@ -17,10 +18,11 @@ function Question () {
         <div>
             <HeaderNav/>
             <div style={{ display: 'flex' }}>
-                <div style={{ flex: '25%' }}><Menu selectedLink={selectedLink} onLinkClick={handleLinkClick} /></div>
-                <div style={{ flex: '5%' }}></div>
-                <div style={{ flex: '70%' }}><Content selectedLink={selectedLink} /></div>
+                <div style={{ flex: '21%' }}><Menu selectedLink={selectedLink} onLinkClick={handleLinkClick} /></div>
+                <div style={{ flex: '4%' }}></div>
+                <div style={{ flex: '75%' }}><Content selectedLink={selectedLink} /></div>
             </div>
+            <Footer/>
         </div>
     );
 };

@@ -17,12 +17,12 @@ function Content({selectedLink}) {
 
   // 從selectContent設置Name及Component
   const SelectedName = selectedContent ? selectedContent.name : '111';
-  
 
   const [SelectedComponent, setSelectedComponent] = useState(null);
   const [Answer, setAnswer] = useState(null);
   const [ShownText, setShownText] = useState(null);
-
+  console.log(ShownText);
+  console.log(Answer);
   useEffect(() => {
     if (selectedContent && selectedContent.function) {
       const componentResult = selectedContent.function();
@@ -65,6 +65,9 @@ function Content({selectedLink}) {
     // 檢查答案是字符串還是數字，並相應處理用戶輸入
     let userAnswer = formatExpression(userInput); // 首先移除用戶輸入兩邊的空白 // ; 
       
+
+
+
     if (typeof Answer === 'number') {
       userAnswer = parseInt(userAnswer, 10); // 假設答案是數字，則將輸入轉為數字, 10指10進制
     }      
@@ -74,7 +77,7 @@ function Content({selectedLink}) {
         setIsButtonDisabled(true);
         setTimeout(() => { handleRegenerateClick(); }, 2000); // 延遲2秒後做next step
     } else {
-      setMessage('Wrong');
+      setMessage('Incorrect');
     }
   };
   //  每次改 selectedLink, input 字串都會被清空
@@ -105,24 +108,59 @@ function Content({selectedLink}) {
     }, [isButtonDisabled]);
     //copy from directed nuber end
 
-    
+
 
 
     return(
-      <div style={{ fontFamily: 'Arial, sans-serif', color: '#333' }}>
-      <h2 style={{ borderBottom: '2px solid #4CAF50', paddingBottom: '10px' }}>Question by Topic</h2>
-      <div style={{ backgroundColor: '#f9f9f9', padding: '20px', borderRadius: '10px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
-        <div>
-          <h3 style={{ color: '#4CAF50', fontSize: 'smaller' }}>{SelectedName}</h3>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <p style={{ fontSize: 'larger', flex: '1 0 auto' }}>{ShownText}</p>
-            <button
-              style={{ backgroundColor: '#999', color: 'white', border: 'none', padding: '5px 10px', borderRadius: '4px', cursor: 'pointer', fontSize: 'smaller', flex: '0 1 100px' }}
-              onClick={handleRegenerateClick}
-            >
-              Regenerate
-            </button>
-          </div>
+      <div style={{ 
+        fontFamily: 'Arial, sans-serif', 
+        color: '#333', 
+        marginRight: '20px' // Adding right margin to the container
+      }}>    
+    <h2 style={{ borderBottom: '2px solid #4CAF50', paddingBottom: '10px' }}>
+      Question by Topic
+    </h2>
+    <div style={{ 
+      backgroundColor: '#f9f9f9', 
+      padding: '20px', 
+      borderRadius: '10px', 
+      boxShadow: '0 2px 4px rgba(0,0,0,0.1)', 
+      marginRight: '20px' // Adding right margin to the inner container
+    }}>
+      <div>
+        <h3 style={{ color: '#4CAF50', fontSize: 'smaller' }}>
+          {SelectedName}
+        </h3>
+        <div style={{ 
+          display: 'grid',
+          gridTemplateColumns: 'auto min-content', // Allocate space for text and button
+          alignItems: 'center',
+          gap: '10px' // Space between text and button
+        }}>
+          <p style={{ 
+            fontSize: 'larger', 
+            wordBreak: 'break-word', // Breaks long unbroken strings
+            hyphens: 'auto', // Automatically add hyphens where appropriate
+            margin: 0 // Remove default margin
+          }}>
+            {ShownText}
+          </p>
+          <button
+            style={{ 
+              backgroundColor: '#999', 
+              color: 'white', 
+              border: 'none', 
+              padding: '5px 10px', 
+              borderRadius: '4px', 
+              cursor: 'pointer', 
+              fontSize: 'smaller'
+            }}
+            onClick={handleRegenerateClick}
+          >
+            Regenerate
+          </button>
+        </div>
+
           <div style={{ display: 'flex', alignItems: 'center', marginTop: '10px' }}>
             <input
               type="text"

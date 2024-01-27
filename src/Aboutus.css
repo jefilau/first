@@ -1,50 +1,52 @@
 .aboutus-layout {
     display: flex;
     padding: 20px;
-}
-
-.aboutus-content {
+  }
+  
+  .aboutus-content {
     flex: 70%;
-}
-.aboutus-container {
+  }
+  
+  .aboutus-container {
     max-width: 600px;
-    margin: auto;
+    margin: auto 20px auto auto;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
     border-radius: 8px;
-}
-
-.aboutus-container h2, .aboutus-container h3 {
-    color:#333;
+  }
+  
+  .header-style {
+    color: #333;
     text-align: center;
-    }
-    
-    .form-group {
+  }
+  
+  .form-group {
     margin-bottom: 20px;
-    }
-    
-    .form-group label {
+  }
+  
+  .label-style {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
-    }
-    
-    .form-group input[type="text"],
-    .form-group input[type="tel"],
-    .form-group input[type="email"],
-    .form-group textarea {
+  }
+  
+  .input-style {
+    width: 95%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .textarea-style {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    }
-    
-    .form-group textarea {
     height: 100px;
     resize: vertical;
-    }
-    
-    button[type="submit"] {
+  }
+  
+  .submit-button {
     width: 100%;
     padding: 10px;
     border: none;
@@ -53,9 +55,28 @@
     font-size: 16px;
     border-radius: 4px;
     cursor: pointer;
-    }
-    
-    button[type="submit"]:hover {
+  }
+  
+  .submit-button:hover {
     background-color: #45a049;
+  }
+  
+  .contact-info {
+    flex: 30%;
+    padding: 20px;
+    text-align: left;
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 600px) {
+    .aboutus-layout {
+      flex-direction: column;
     }
+  
+    .aboutus-content, .contact-info {
+      flex: none;
+      width: 100%;
+      margin: 0;
+    }
+  }
   

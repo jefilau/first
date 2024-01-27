@@ -1,18 +1,71 @@
 .answered {
-    background-color: #999999;;
-}
-
-.unanswered {
-    background-color: #1111aa;;
-}
-
-.active {
-    background-color: #f9f9f9;;
-    /* 其他原有的按鈕樣式 */
-}
-.content-box {
+    background-color: #999999;
+  }
+  
+  .unanswered {
+    background-color: #4CAF50;
+  }
+  
+  .active {
     background-color: #f9f9f9;
+
+  }
+  .start-screen-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .start-screen-inner {
+    text-align: center;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
+    background-color: #f5f5f5;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .start-screen-container p {
+    text-align: center;
+    margin-bottom: 15px;
+  }
+  
+  .start-screen-container button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+
+  }
+  
+  .start-screen-container button:hover {
+    background-color: #38803a;
+  }
+  
+  .year-buttons-container {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+  }
+
+  .back-button-row {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+
+/* 其他 CSS 不變 */
+
+  /* 提升 .back-button 類別嘅優先級 */
+  .start-screen-container .back-button {
+    background-color: rgb(119, 0, 0);
+    color: white;
+    border: none;
+  }
+
+  .start-screen-container .back-button:hover {
+    /* 如果你想要 hover 效果，可以喺呢度定義 */
+    background-color: rgb(65, 0, 0);; /* 替換成你想要嘅 hover 顏色 */
+  }

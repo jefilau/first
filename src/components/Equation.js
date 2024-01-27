@@ -12,11 +12,11 @@ function Equation() {
 
     
     if (SecondNumber < 0){
-      ShownText = 'Solove x for the equation ' + displayFirstNumber +'x -'+ Math.abs(SecondNumber) +'='+ ThirdNumber;
+      ShownText = 'Solve x for the equation ' + displayFirstNumber +'x -'+ Math.abs(SecondNumber) +'='+ ThirdNumber;
 
     }
     else {
-      ShownText = ` Solove x for the equation  ${displayFirstNumber}x +${SecondNumber}=${ThirdNumber}`;
+      ShownText = ` Solve x for the equation  ${displayFirstNumber}x +${SecondNumber}=${ThirdNumber}`;
 
     }    
 

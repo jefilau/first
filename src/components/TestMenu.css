@@ -1,8 +1,11 @@
+/* TestMenu.css */
 .testmenu {
   top: 0px;
   background-color: #397367; /* 修改背景顏色為綠色調 */
   padding: 0 20px;
   height: 100vh;
+  max-height: 400px; /* Adjust this value as per your layout */
+  overflow-y: auto;
 }
 
 .testmenu ul {
@@ -50,4 +53,21 @@
 /* 未回答的題目 */
 .testmenu button.unanswered {
   background-color: #999999; /* 深藍色表示尚未回答的問題 */
+}
+
+/* Modern scrollbar styling */
+.testmenu::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+}
+
+.testmenu::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Track color */
+}
+
+.testmenu::-webkit-scrollbar-thumb {
+  background: #888; /* Handle color */
+}
+
+.testmenu::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Handle color on hover */
 }

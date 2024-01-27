@@ -1,6 +1,7 @@
 import randomNumber from '../mathsfunction/randonNumber';
 
 function DirectNumber() {
+  
     //Set Up Question and Answer
     const FirstNumber = randomNumber(-5, 13);
     const SecondNumber = randomNumber(-9, 9);

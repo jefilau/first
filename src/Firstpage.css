@@ -1,0 +1,130 @@
+/* 通用樣式 */
+.container-style {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+/* 第一個row */
+.first-row {
+  display: flex;
+  width: 100%; 
+  margin-bottom: 20px;
+}
+
+.column {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-column {
+  flex: 60%;
+}
+
+.image-column img {
+  max-width: 100%; 
+  height: auto; 
+}
+
+.button-column {
+  flex: 40%;
+  display: flex;
+  flex-direction: column; /* 確保元素垂直排列 */
+  align-items: center; /* 中心對齊 */
+}
+
+.pill-button {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px 20px;
+  border: none;
+  background-color: #4CAF50;
+  color: white;
+  font-size: 70px; /* 調整為更合適嘅大小 */
+  cursor: pointer;
+  height: 100px;
+  line-height: 5vw;
+
+}
+
+.pill-button:hover {
+  background-color: #45a049;
+}
+
+.new-line {
+  margin-top: 10px;
+  display: block; /* 使元素佔滿整行 */
+  font-size: 45px;
+  color: #555555;
+}
+
+/*第2 Row: Intro*/
+.intro-row {     
+  flex: 100%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.intro-container {    
+  width: 95%;
+  margin: 0;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  background-color: #f5f5f5;
+}
+
+/*第3 Row: Button*/
+.button-row {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  margin-top: 20px;
+  margin-bottom: 50px;
+}
+
+.square-button-container {
+  width: 250px;
+  height: 250px;
+}
+
+.square-button {
+  width: 250px;
+  height: 250px;
+  background-color: white;
+  border: 2px solid #ccc;
+  font-size: 22px;
+  color: #333;
+  cursor: pointer;
+  transition: border-color 0.3s;
+}
+
+.square-button:hover {
+  background-color: #f8f8f8;
+  border-color: #4CAF50;
+}
+
+/* 響應式設計 */
+@media screen and (max-width: 600px) {
+  /* 調整圖片同按鈕列嘅排列方式 */
+  .first-row {
+    flex-direction: column;
+  }
+
+  /* 調整 Question 同 Test 按鈕嘅排列方式 */
+  .button-row {
+    flex-direction: column;
+    gap: 10px; /* 可以根據需要調整間隙大小 */
+  }
+
+  /* 可以考慮調整按鈕大小，令佢哋更加適合手機屏幕 */
+  .pill-button, .square-button {
+    font-size: 40px; /* 例子，可以根據需要調整 */
+    padding: 5px 10px; /* 例子，可以根據需要調整 */
+  }
+
+  /* 其他響應式設計調整 */
+  /* 例如調整文字大小、邊距等 */
+}
+

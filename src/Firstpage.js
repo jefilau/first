@@ -1,5 +1,6 @@
 //npm run start
 //npm install react-cookie-consent
+import ParentChildMath from './parent-child-math.jpg';
 
 import React, { useState,useEffect  } from 'react';
 
@@ -7,6 +8,9 @@ import CookieConsent from "react-cookie-consent"; // 用於符合GDPR法規既co
 import { useCookies } from 'react-cookie'; // 令react control 到cookie
 
 import HeaderNav from './components/HeaderNav';
+import Footer from './components/Footer';
+import './Firstpage.css';
+
 
 import { Link } from 'react-router-dom';
 export default function Firstpage(){
@@ -77,29 +81,10 @@ export default function Firstpage(){
             op -= op * 0.05; // 每次減少的透明度
       }, 50); // 每50毫秒減少一次透明度
     };
-    const buttonStyle = {
-      backgroundColor: '#4CAF50',
-      color: 'white',
-      border: 'none',
-      padding: '10px 20px',
-      borderRadius: '5px',
-      cursor: 'pointer',
-      fontSize: '16px'
-    };
     
   return(
+     
     <div>
-
-    {!cookies.loggedIn ? (
-       //用戶未入密碼，被要求輸入密碼 
-        <div>
-          <input type="password" value={password} onChange={handlePasswordChange} />
-          <button onClick={checkPassword}>提交</button>
-        </div>
-
-      ) : (
-        
-        <div>
            <HeaderNav/>
            <CookieConsent
               location="bottom"
@@ -125,34 +110,36 @@ export default function Firstpage(){
               By continuing to use this website, you agree to our use of cookies.
             </CookieConsent>
 
-            <div style={{ textAlign: 'center', padding: '20px', fontFamily: 'Arial, sans-serif' }}>
-      <h1 style={{ color: '#4CAF50', marginBottom: '20px' }}>學習加強平台</h1>
+      <div class="container-style">
+      <div class="first-row">
+  <div class="column image-column">
+    <img src={ParentChildMath} alt="make your own test" />
+  </div>
+  <div class="column button-column">
+    <p><Link to="/test"><button className="pill-button">Start</button></Link></p>
+    <p class="new-line">Your Own Test</p>
+  </div>
+</div>
+<div className="intro-row">
+  <div className="intro-container">
+  <p style={{ marginBottom: '20px' }}>
+Welcome to our innovative and comprehensive learning and testing platform, exclusively tailored to meet the needs of students like you! We are dedicated to providing an extensive array of educational resources and a diverse range of practice questions, all meticulously crafted to empower you in your quest for exam success and to enhance your overall learning achievements.
+</p>
+<p>Our primary objective is to revolutionize the learning experience, injecting it with excitement and productivity, by offering engaging interactive questions and stimulating quizzes. Whether you seek a thorough review of your knowledge or a challenging self-assessment, our platform is the ultimate destination to embark on your educational journey.
+</p>
+  </div>
+</div>
+<div className="button-row">
+  <Link to="/question"><button className="square-button">Question</button></Link>
+  <Link to="/test"><button className="square-button">Test</button></Link>
+</div>
       
-      <div style={{ backgroundColor: '#f9f9f9', padding: '20px', borderRadius: '10px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
-        <p style={{ fontSize: '18px', color: '#333', marginBottom: '15px' }}>
-          歡迎來到專為學生設計的學習和測試平台！我們提供豐富的學習資料和練習題，
-          幫助你有效準備考試，提升學習成效。
-        </p>
-        <p style={{ fontSize: '16px', color: '#555', marginBottom: '20px' }}>
-          我們的目標是通過互動式問題和測驗，讓學習變得更有趣、更有效率。無論是溫習
-          還是挑戰自我，這裡都是你的理想選擇。
-        </p>
-        <div style={{ marginTop: '20px' }}>
-          <Link to="/question">
-            <button style={buttonStyle}>嘗試問題</button>
-          </Link>
-          <Link to="/test">
-            <button style={{ ...buttonStyle, marginLeft: '10px' }}>進行測驗</button>
-          </Link>
-        </div>
+
       </div>
+      <Footer/>
     </div>
+    
 
-        </div>
-      )
-
-    }
-    </div>
   )
 }
 /*onAccept={() => {

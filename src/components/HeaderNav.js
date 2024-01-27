@@ -1,36 +1,51 @@
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './HeaderNav.css';
 
 export default function HeaderNav() {
+
+
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+  
   return (
     <div>
       <nav>
-        <div className="Menu">
-          <div className="container">
-            <table className="link-table">
+      <div className="Menu">
+
+          <table className="link-table">
               <tbody>
                 <tr>
-                  <td>
-                    <Link to="/" className="top-bar-link">Home</Link>
+                  <td className="left-link" >
+                    <Link to="/" className="top-bar-link home-logo">Hello Maths</Link>
                   </td>
-                  <td>
+                  <td  className="right-links" >
                     <Link to="/question" className="top-bar-link">Question</Link>
-                  </td>
-                  <td>
                     <Link to="/test" className="top-bar-link">Test</Link>
-                  </td>
-
-                  <td>
                     <Link to="/Aboutus" className="top-bar-link">About Us</Link>
+                  </td>
+                  <td className="hamburger-menu" onClick={toggleMenu}>
+                    <span className="menu-icon">&#9776;</span> {/* 漢堡菜單圖標 */}
                   </td>
                 </tr>
               </tbody>
             </table>
+            {isMenuOpen && (
+              <div className="dropdown-menu">
+                <Link to="/question" className="top-bar-link">Question</Link>
+                <Link to="/test" className="top-bar-link">Test</Link>
+                <Link to="/Aboutus" className="top-bar-link">About Us</Link>
+              </div>
+            )}
           </div>
-        </div>
+
       </nav>
     </div>
   );
+
 }
 /*
                   <td>
@@ -130,3 +145,33 @@ function TopBar() {
 
 export default TopBar;
 */
+/*
+  return (
+    <div>
+      <nav>
+        <div className="Menu">
+          <div className="container">
+            <table className="link-table">
+              <tbody>
+                <tr>
+                  <td>
+                    <Link to="/" className="top-bar-link">Home</Link>
+                  </td>
+                  <td>
+                    <Link to="/question" className="top-bar-link">Question</Link>
+                  </td>
+                  <td>
+                    <Link to="/test" className="top-bar-link">Test</Link>
+                  </td>
+
+                  <td>
+                    <Link to="/Aboutus" className="top-bar-link">About Us</Link>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </nav>
+    </div>
+  );*/

@@ -3,16 +3,19 @@
 //Question Genertator
 import React, { useState,useEffect } from 'react';
 
-//Question Bank 既 menu
-import {contentComponent} from './ContentData';
-
+//處理input係數字定string
 import formatExpression from './formatExpression';
 //CSS Style
-//import { styles } from './TestContentStyles';
-function TestContent({selectedLink, SentComponent, totalQuestions, onSelectedLinkChanged, onUserAnswer, isAllAnswered, onSubmit} ) {
+import './TestContent.css';
+
+function TestContent({selectedLink, SentComponent, SentUserInput, totalQuestions, onSelectedLinkChanged, onUserAnswer, isAllOthersRead, onSubmit} ) {
   //從SentComponent獲取 ShownText 及 Answer
+
   const [Answer, setAnswer] = useState(null);
   const [ShownText, setShownText] = useState(null);
+  const [SubmitEnabled, setSubmitEnabled]=useState(false);
+  //計時器
+  const [elapsedTime, setElapsedTime] = useState(0);
   useEffect(() => {
       if (SentComponent && selectedLink) {
         setAnswer(SentComponent.component.Answer);
@@ -22,7 +25,11 @@ function TestContent({selectedLink, SentComponent, totalQuestions, onSelectedLin
  
   //Handle Next Question Button
   const HandleNextQuestionCounter = () => {
-      onSelectedLinkChanged(selectedLink + 1); // 更新selectedLink並通知父組件
+      if(selectedLink === totalQuestions) { 
+        onSelectedLinkChanged(1);
+      } else {
+        onSelectedLinkChanged(selectedLink + 1); // 更新selectedLink並通知父組件
+      }
     };
   
   //copy from directed nuber start
@@ -30,7 +37,6 @@ function TestContent({selectedLink, SentComponent, totalQuestions, onSelectedLin
   const [message, setMessage] = useState('');
   
   const [isNextButtonDisabled, setIsNextButtonDisabled] = useState(false);
-  const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState(true);
   //User Input 是否空白
   const [isInputBlank, setIsInputBlank] = useState(true);
   //Define Variable END
@@ -63,16 +69,18 @@ function TestContent({selectedLink, SentComponent, totalQuestions, onSelectedLin
     if (typeof Answer === 'number') {
       userAnswer = parseInt(userAnswer, 10); // 假設答案是數字，則將輸入轉為數字, 10指10進制
     }
+    
     //如果係最後一題，Next Question 會變做submit
     // 如果是最後一題，則調用 onSubmit 函數
     if (selectedLink === totalQuestions) {
       // 如果是最後一題，則調用 onSubmit 函數
+      onUserAnswer(userAnswer);
       onSubmit();
     } else {
       // 如果不是最後一題，則處理下一題
       onUserAnswer(userAnswer);
       HandleNextQuestionCounter();
-      }
+    }
     setIsNextButtonDisabled(true);
 
   };
@@ -89,13 +97,30 @@ function TestContent({selectedLink, SentComponent, totalQuestions, onSelectedLin
       onSelectedLinkChanged(selectedLink + 1);
     }
   };  
-
-  //  每次改 selectedLink, input 字串都會被清空
+  //Setup Input位有冇資料
   useEffect(() => {
-    setUserInput('');
-  }, [selectedLink]);
+    // 檢查是否有這個問題的答案
+    if (SentUserInput !== undefined) {
+      setUserInput(SentUserInput); // 設置先前的答案為輸入框的值
+    } else {
+      setUserInput(''); // 如果沒有答案，清空輸入框
+    }
+  }, [selectedLink, SentUserInput]); // 添加 selectedLink 和 userAnswer 作為依賴項
+  
+  //Handle Submit Button係咪Enable
+// Handle Submit Button 是否启用
+/*useEffect(() => {
+  const isInputNotEmpty = typeof userInput === 'string' && userInput.trim() !== ''; // 
+  //const isInputNotEmpty = userInput.trim() !== ''; // Check Input位是否非Empty
+  const shouldEnableSubmit = isAllOthersRead && isInputNotEmpty; // 
 
+  setSubmitEnabled(!shouldEnableSubmit); // 更新 SubmitEnabled 
+}, [isAllOthersRead, userInput]); // 添加 isAllOthersRead 和 userInput 
+*/
 
+useEffect(() => {
+  setSubmitEnabled(!isAllOthersRead); // 更新 SubmitEnabled 
+}, [isAllOthersRead]); // 添加 isAllOthersRead 和 userInput 
 
   //set time from disable to enable after 2 second
     useEffect(() => {
@@ -107,34 +132,41 @@ function TestContent({selectedLink, SentComponent, totalQuestions, onSelectedLin
       }
       return () => clearTimeout(timer);
     }, [isNextButtonDisabled]);
-    //copy from directed nuber end
+    //copy from directed number end
 
+  //Handle Timer
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setElapsedTime(prevTime => prevTime + 1);
+    }, 1000);
+
+    // Step 5: Clear interval on component unmount
+    return () => clearInterval(timer);
+  }, []);
+
+  // Function to format time to minutes and seconds
+  const formatTime = (timeInSeconds) => {
+    const minutes = Math.floor(timeInSeconds / 60);
+    const seconds = timeInSeconds % 60;
+    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+  };
+
+  //Handle Quit Button
+  const handleQuitTest = () => {
+    const confirmQuit = window.confirm("If you quit, all your previous answers will be lost. Are you sure you want to quit?");
+    if (confirmQuit) {
+      // 這裡可以使用<Link>導航，或者使用window.location.href直接跳轉
+      window.location.href = "/"; // 假設主頁的路徑是"/"
+    }
+    // 如果用戶選擇Cancel，則什麼都不做
+};
 
 // Style  ////////////////////////////////////////////////////////////////////////////////////////
 
 const styles = {
-  container: {
-    fontFamily: 'Arial, sans-serif', 
-    color: '#333'
-  },
-  questionHeader: {
-    borderBottom: '2px solid #4CAF50', 
-    paddingBottom: '10px'
-  },
+
   contentBox: {
     // 如果 content-box 有特定樣式，可以喺呢度加
-  },
-  questionText: {
-    display: 'flex', 
-    alignItems: 'center', 
-    justifyContent: 'space-between'
-  },
-  inputStyle: {
-    padding: '10px', 
-    border: '1px solid #ccc', 
-    borderRadius: '4px', 
-    marginRight: '10px', 
-    flex: '0 1 150px'
   },
   nextQuestionButton: {
     backgroundColor: '#4CAF50', 
@@ -145,29 +177,19 @@ const styles = {
     cursor: 'pointer', 
     flex: '0 1 100px'
   },
-  navigationButton: {
-    backgroundColor: '#ddd', 
-    color: '#333', 
-    border: 'none', 
-    padding: '8px 16px', 
-    borderRadius: '4px', 
-    cursor: 'pointer', 
-    flex: '0 1 auto', 
-    marginRight: '10px'
-  },
 
 };
   const submitButtonStyle = {
-    backgroundColor: isAllAnswered ? '#4CAF50' : '#ccc', // 啟用時為綠色，禁用時為灰色
+    backgroundColor: !SubmitEnabled ? '#4CAF50' : '#ccc', // 啟用時為綠色，禁用時為灰色
     color: 'white',
     border: 'none',
     padding: '10px 20px',
     borderRadius: '4px',
-    cursor: isAllAnswered ? 'pointer' : 'default',
+    cursor: !SubmitEnabled ? 'pointer' : 'default',
     flex: '0 1 100px'
   };
   const previousButtonStyle = {
-    backgroundColor: selectedLink > 1 ? '#388E3C' : '#ddd', // 啟用時為綠色，禁用時為灰色
+    backgroundColor: selectedLink > 1 ? '#5aac5e' : '#ddd', // 啟用時為綠色，禁用時為灰色
     color: '#333', 
     border: 'none', 
     padding: '8px 16px', 
@@ -178,7 +200,7 @@ const styles = {
   };
 
   const nextButtonStyle = {
-    backgroundColor: selectedLink < totalQuestions ? '#388E3C' : '#ddd', // 啟用時為綠色，禁用時為灰色
+    backgroundColor: selectedLink < totalQuestions ? '#5aac5e' : '#ddd', // 啟用時為綠色，禁用時為灰色
     color: '#333', 
     border: 'none', 
     padding: '8px 16px', 
@@ -187,28 +209,35 @@ const styles = {
     flex: '0 1 auto',
     marginRight: '10px' 
   };
+
     return(
-      <div style={styles.container}>
-      <h2 style={styles.questionHeader}>Question {selectedLink}</h2>
+      <div className="container"  style={{ position: 'relative' }}>
+      <div style={{  position: 'absolute', top: '10px', right: '20px', textAlign: 'right' }}>
+        Time on page: {formatTime(elapsedTime)}
+      </div>
+      
+      <h2 className="question-header">Question {selectedLink}</h2>
+      
       <div className="content-box" style={styles.contentBox}>
         <div>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <p style={{ fontSize: 'larger', flex: '1 0 auto' }}>{ShownText}</p>
+          <div clsssname="question-text">
+            <p clsssname="question-text p">{ShownText}</p>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', marginTop: '10px' }}>
+
             <input 
               type="text"
               value={userInput}
               onChange={handleInputChange}
               onKeyDown={handleKeyDown}
-              style={styles.inputStyle} />
+              className="input-style" />
             
             <button 
               style={styles.nextQuestionButton}
               disabled={isNextButtonDisabled}
               onClick={handleNextQuestionClick}
             >
-              Next Question
+              Submit & Next
             </button>
           </div>
   
@@ -219,7 +248,7 @@ const styles = {
               disabled={selectedLink <= 1}
               onClick={handlePrevious}
             >
-              &lt;&lt; Previous
+              &lt;&lt; Back to Previous Question
             </button>
   
             <button 
@@ -227,18 +256,21 @@ const styles = {
               disabled={selectedLink >= totalQuestions}
               onClick={handleNext}
             >
-              Next &gt;&gt;
+              Skip to Next Question &gt;&gt;
             </button>
           </div>   
   
-          <div style={{ display: 'flex', alignItems: 'center', marginTop: '10px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '10px' }}>
+  
             <button 
               style={submitButtonStyle}
-              disabled={!isAllAnswered}
+              disabled={SubmitEnabled}
               onClick={onSubmit}
             >
-              Submit
+              Submit Test
             </button>
+            <button className="quit-test-button" onClick={handleQuitTest}>Quit Test</button>
+      
           </div>
         </div>
       </div>
@@ -248,6 +280,3 @@ const styles = {
 }
 export default TestContent;
 
-
-//<div style={{ backgroundColor: '#f9f9f9', padding: '20px', borderRadius: '10px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
-    

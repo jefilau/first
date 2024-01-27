@@ -1,10 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function TestResults({ userAnswers, componentsArray, score }) {
+function TestResults({ userAnswers, componentsArray, score, elapsedTime }) {
   const today = new Date().toLocaleDateString();
   const totalMarks = componentsArray.length;
   
+  // 格式化時間
+  const formatTime = (timeInSeconds) => {
+    const minutes = Math.floor(timeInSeconds / 60);
+    const seconds = timeInSeconds % 60;
+    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+  };
   // 實現保存結果為 HTML 的功能
   const handleSaveResults = () => {
     // 將結果轉換為 HTML 格式
@@ -42,7 +48,7 @@ function TestResults({ userAnswers, componentsArray, score }) {
                     <td>${component.component.ShownText}</td>
                     <td>${userAnswers[index]}</td>
                     <td style="color: ${component.component.Answer === userAnswers[index] ? 'green' : 'red'}">
-                      ${component.component.Answer === userAnswers[index] ? 'Correct' : 'Wrong'}
+                      ${component.component.Answer === userAnswers[index] ? 'Correct' : 'Incorrect'}
                     </td>
                     <td>${component.component.Answer === userAnswers[index] ? '' : component.component.Answer}</td>
                   </tr>
@@ -124,6 +130,7 @@ function TestResults({ userAnswers, componentsArray, score }) {
         <table style={tableStyle}>
         <thead>
           <tr>
+            <th style={cellStyle}></th>
             <th style={cellStyle}>Question</th>
             <th style={cellStyle}>Your Answer</th>
             <th style={cellStyle}>Result</th>
@@ -144,7 +151,7 @@ function TestResults({ userAnswers, componentsArray, score }) {
                   <td>{component.component.ShownText}</td>
                   <td>{displayAnswer}</td>
                   <td style={{ color: component.component.Answer === userAnswers[index] ? 'green' : 'red' }}>
-                    {component.component.Answer === userAnswers[index] ? 'Correct' : 'Wrong'}
+                    {component.component.Answer === userAnswers[index] ? 'Correct' : 'Incorrect'}
                   </td>
                   <td>
                     {component.component.Answer === userAnswers[index] ? '' : component.component.Answer}
